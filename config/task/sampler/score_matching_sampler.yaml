@@ -1,0 +1,9 @@
+# config/sampler/score_matching_sampler.yaml
+# @package _group_
+score_matching:
+  _target_: project.samplers.step_sampler.StepSampler.from_config
+  sampler_type: score_matching_euler
+  name: ScoreMatchingSampler
+  max_function_evals: 50
+  rho: 1.
+  t_max: 1.

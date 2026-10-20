@@ -1,0 +1,13 @@
+# @package _global_
+
+defaults:
+  - /data: qm9_with_hydrogen
+  - /experiment/molecules
+
+data:
+  batch_size: 324
+  remove_charges: false
+  remove_hydrogen: false
+reconstructor:
+  num_layers: 9
+

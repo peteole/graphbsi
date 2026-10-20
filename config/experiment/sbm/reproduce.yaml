@@ -1,0 +1,20 @@
+# @package _global_
+# Reproduce SBM synthetic-graph metrics (Table 2).
+defaults:
+  - /experiment/sbm/base
+
+load_checkpoint: final_checkpoints/sbm/last.ckpt
+exp: reproduce_sbm
+wandb:
+  mode: disabled
+  name: reproduce_sbm
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 1000
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 200.0
+        condition_on_prior: false

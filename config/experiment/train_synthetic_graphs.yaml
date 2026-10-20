@@ -1,0 +1,53 @@
+# @package _global_
+
+defaults:
+  # - /data: planar
+  - /data: tree
+  # - /data: sbm
+  - /reconstructor: synthetic_graph_sample_reconstructor
+  - /belief: synthetic_graph_belief
+  - /plots: synthetic_graphs
+  - /class_conditioner: synthetic_graph_mask
+  - override /task/sampler:
+      - variable_noise_sampler
+      - non_bayesian_sampler
+# load_checkpoint: checkpoints/train_sbm/aog3lu3i/last.ckpt
+# load_checkpoint: checkpoints/train_tree/94s6v8wm/last.ckpt
+# resume_from_epoch: 50000 
+data:
+  batch_size: 256
+reconstructor:
+  num_layers: 8
+
+exp: train_${data.ds_type}
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 1000
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 200.0
+        condition_on_prior: false
+    non_bayesian:
+      time_discretization_steps: 100
+      rho: 1.0
+      t_max: 1.0
+      resample_initial_belief: false
+      reconstruction_mode: smooth
+  repeat_count: 1
+belief:
+  scheduler:
+    initial_precision: 3.0
+    final_precision: 20.0
+  initial_categorical_belief_std: 1.0
+  loss_mode: kl
+wandb:
+  name: precision=${belief.scheduler.initial_precision}_to_${belief.scheduler.final_precision}_grad_batch=${trainer.accumulate_grad_batches}
+trainer:
+  max_epochs: 44000
+  log_every_n_steps: 5
+  # profiler: simple
+  check_val_every_n_epoch: 2000
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 4

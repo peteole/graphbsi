@@ -1,0 +1,36 @@
+_target_: project.reconstructor.graph_transformer.graph_reconstructor.GraphReconstructor.from_config
+name: graph_sample_reconstructor
+num_layers: 5
+take_argmax: false
+defaults:
+ - hidden_mlp_dims: medium
+ - hidden_dims: medium
+ - _self_
+
+global_features:
+  - _target_: project.reconstructor.graph_transformer.global_features.TimeEmbeddingFeatures
+    size: 32
+    expected_rate: 100.0
+  - _target_: project.reconstructor.graph_transformer.global_features.EntropyEmbeddingFeatures
+    size: 32
+  #   expected_rate: 100.0
+  # - _target_: project.reconstructor.graph_transformer.global_features.TimeFeature
+
+node_features:
+  - _target_: project.reconstructor.graph_transformer.node_features.ClassLogitsNodeFeatures
+    num_classes: ${data.num_atom_types}
+    normalize: true
+  - _target_: project.reconstructor.graph_transformer.node_features.ClassProbabilityNodeFeatures
+    num_classes: ${data.num_atom_types}
+  - _target_: project.reconstructor.graph_transformer.node_features.EntropyNodeFeatures
+  
+
+edge_features:
+  - _target_: project.reconstructor.graph_transformer.edge_features.ClassLogitsEdgeFeatures
+    num_classes: ${data.num_bond_types}
+    normalize: false
+  - _target_: project.reconstructor.graph_transformer.edge_features.ClassProbabilityEdgeFeatures
+    num_classes: ${data.num_bond_types}
+  - _target_: project.reconstructor.graph_transformer.edge_features.EntropyEdgeFeatures
+  - _target_: project.reconstructor.graph_transformer.edge_features.RRWPEdgeFeatures
+    max_steps: 12

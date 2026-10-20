@@ -1,0 +1,9 @@
+# @package _global_
+
+defaults:
+  - /data: sbm
+  - /experiment/synthetic_graphs
+
+data:
+  batch_size: 32
+

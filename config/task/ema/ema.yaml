@@ -1,0 +1,4 @@
+_target_: ema_pytorch.EMA
+beta: 0.9999
+update_after_step: 100
+update_every: 1

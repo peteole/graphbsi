@@ -1,0 +1,10 @@
+# config/sampler/non_bayesian_sampler.yaml
+# @package _group_
+non_bayesian:
+  _target_: project.samplers.non_bayesian_sampler.NonBayesianSampler
+  name: NonBayesianSampler(function_evals=${.time_discretization_steps},rho=${.rho},reconstruction_mode=${.reconstruction_mode},resample_prior=${.resample_initial_belief})
+  time_discretization_steps: 50
+  rho: 0.5
+  t_max: 1.0
+  resample_initial_belief: false
+  reconstruction_mode: smooth

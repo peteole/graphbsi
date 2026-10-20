@@ -1,0 +1,23 @@
+# @package _global_
+# Reproduce Moses metrics from the paper checkpoint (Table 1).
+defaults:
+  - /experiment/moses/base
+  - override /task/sampler:
+      - variable_noise_sampler
+
+load_checkpoint: final_checkpoints/moses/last.ckpt
+exp: reproduce_moses
+wandb:
+  mode: disabled
+  name: reproduce_moses
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 500
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 90.0
+        condition_on_prior: false
+        reconstruction_mode: smooth

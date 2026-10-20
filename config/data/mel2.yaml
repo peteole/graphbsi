@@ -1,0 +1,6 @@
+_target_: project.data.sequence.SequenceDataModule.from_config
+ds_type: MEL2
+cache_dir: data/dna
+batch_size: 256
+num_workers: 0
+sequence_length: 500

@@ -1,0 +1,31 @@
+
+  # - _target_: project.plots.belief_plots_callback.BeliefPlotsCallback.from_config
+
+  #   _recursive_: false
+  #   name: molecules_belief_series_plotter
+  #   belief_series_plotter:
+  #     _target_: project.plots.molecule.PlotMoleculeBeliefSeries
+  #     name: molecules_belief_series_plotter
+  #   samples_plotter:
+  #     _target_: project.plots.molecule.PlotMoleculeSamples
+  #     name: molecules_samples_plotter
+  #   defaults:
+  #     - _self_
+  #     - belief_series_plotter: molecules
+  #     - samples_plotter: molecules
+
+
+
+  #   num_timesteps_to_plot: 9
+  #   num_belief_series_to_plot: 3
+  #   num_samples_to_plot: 15
+  #   batch_size: ${data.batch_size}
+  #   num_time_discretization_steps: 100
+- _target_: project.plots.molecule.MoleculeScorePlotter.from_config
+  name: molecule_score_plotter
+  num_samples: 25000
+  batch_size: 64
+- _target_: project.plots.reconstruction_accuracy.ReconstructionAccuracyPlot
+  name: reconstruction_accuracy
+  num_t_buckets: 10
+  min_samples_per_bucket: 256

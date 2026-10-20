@@ -1,0 +1,13 @@
+_target_: project.belief.belief_constructor.construct_molecular_belief_from_config
+name: molecular_belief
+
+defaults:
+  - scheduler: ole_scheduler
+  # - scheduler: lin_scheduler
+
+initial_categorical_belief_std: 1.0
+num_node_features: ${data.num_atom_types}
+num_edge_features: ${data.num_bond_types}
+max_num_atoms: ${data.max_num_atoms}
+marginal_as_prior: true
+loss_mode: kl

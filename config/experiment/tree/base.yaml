@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - /data: tree
+  - /experiment/synthetic_graphs
+
+data:
+  batch_size: 256
+
+belief:
+  scheduler:
+    initial_precision: 3.0
+    final_precision: 25.0
+  initial_categorical_belief_std: 1.0

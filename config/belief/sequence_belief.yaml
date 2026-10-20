@@ -1,0 +1,9 @@
+_target_: project.belief.belief_constructor.construct_sequence_belief_from_config
+name: sequence_belief
+
+defaults:
+  - scheduler: ole_scheduler
+
+initial_categorical_belief_std: 1.0
+alphabet_size: 4  # A, C, G, T
+sequence_length: ${data.sequence_length} # Will be set from data

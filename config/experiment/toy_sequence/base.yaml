@@ -1,0 +1,47 @@
+# @package _global_
+
+defaults:
+  - /data: toy_sequence
+  - /reconstructor: sequence_cnn
+  - /belief: sequence_belief
+  - /task/sampler: variable_noise_sampler
+  - /plots: toy_sequence
+
+exp: train_toy_sequence
+
+data:
+  seq_len: 4
+  alphabet_size: 100
+  batch_size: 512
+
+reconstructor:
+  num_cnn_stacks: 4
+  hidden_dim: 128
+  dropout: 0.0
+
+belief:
+  alphabet_size: ${data.alphabet_size}
+  sequence_length: ${data.seq_len}
+  initial_categorical_belief_std: 1.0
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 100
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 5.0
+        condition_on_prior: false
+
+trainer:
+  max_epochs: 50
+  check_val_every_n_epoch: 10
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 1
+
+logger:
+  wandb:
+    project: bsi-toy-sequence
+    tags:
+      - toy_sequence

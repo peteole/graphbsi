@@ -1,0 +1,10 @@
+_target_: project.data.molecule.MoleculeDataModule.from_config
+ds_type: moses
+max_num_atoms: 30
+num_atom_types: 8
+num_bond_types: 5
+cache_dir: 'data/molecules'
+remove_charges: true
+max_num_samples: 100000
+batch_size: 256
+num_workers: 0

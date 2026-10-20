@@ -1,0 +1,26 @@
+
+- _target_: project.plots.reconstruction_accuracy.ReconstructionAccuracyPlot
+  name: reconstruction_accuracy
+  num_t_buckets: 10
+  min_samples_per_bucket: 256
+- _target_: project.plots.belief_plots_callback.BeliefPlotsCallback.from_config
+
+  _recursive_: false
+  name: synthetic_graphs_plots
+  belief_series_plotter:
+    _target_: project.plots.synthetic_graphs.PlotGraphBeliefSeries
+    name: synthetic_graph_belief_series_plotter
+  samples_plotter:
+    _target_: project.plots.synthetic_graphs.PlotGraphSamples
+    name: synthetic_graph_samples_plotter
+
+  num_timesteps_to_plot: 9
+  num_belief_series_to_plot: 3
+  num_samples_to_plot: 10
+  batch_size: ${data.batch_size}
+- _target_: project.plots.synthetic_graphs.SyntheticGraphScoresCallback
+  name: synthetic_graph_plotter
+  num_samples: 200
+  metric_batch_size: 40
+  batch_size: 16
+  ds_type: ${data.ds_type}

@@ -1,0 +1,4 @@
+_target_: project.reconstructor.sequence_reconstructor.SequenceReconstructor.from_config
+num_cnn_stacks: 4
+hidden_dim: 128
+dropout: 0.0

@@ -1,0 +1,4 @@
+_target_: project.prior.dirichlet_prior.DirichletPrior
+shape: ${data.downsampled_shape}
+num_classes: ${data.num_classes}
+concentration: 10.0

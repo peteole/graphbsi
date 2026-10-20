@@ -1,0 +1,23 @@
+# @package _global_
+# Reproduce one toy-sequence KL point (Fig. 9). Alphabet size is overridden by the runner.
+defaults:
+  - /experiment/toy_sequence/base
+
+load_checkpoint: final_checkpoints/toy_sequence/alphabet_100.ckpt
+exp: reproduce_toy_sequence
+wandb:
+  mode: disabled
+  name: reproduce_toy_sequence
+
+data:
+  alphabet_size: 100
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 100
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 5.0
+        condition_on_prior: false

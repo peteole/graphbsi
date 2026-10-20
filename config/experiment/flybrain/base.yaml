@@ -1,0 +1,34 @@
+# @package _global_
+
+defaults:
+  - /data: flybrain
+  - /reconstructor: sequence_cnn
+  - /belief: sequence_belief
+  - /task/sampler: variable_noise_sampler
+  - /plots: sequence
+
+exp: train_flybrain
+
+data:
+  batch_size: 256
+
+reconstructor:
+  num_cnn_stacks: 4
+  hidden_dim: 128
+  dropout: 0.0
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 100
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 5.0
+        condition_on_prior: false
+
+trainer:
+  max_epochs: 800
+  check_val_every_n_epoch: 10
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 1

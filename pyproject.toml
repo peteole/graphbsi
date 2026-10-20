@@ -1,0 +1,69 @@
+[build-system]
+requires = ["flit_core >=3.7,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "project"
+dynamic = ["version", "description"]
+authors = [
+    {name = "Ole Petersen", email = "peteole2707@gmail.com"},
+]
+dependencies = [
+    "torch ~= 2.7",
+    "lightning ~= 2.5",
+    "torchmetrics",
+    "einops",
+    "tensordict~=0.8",
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "matplotlib",
+    "hydra-core ~= 1.3",
+    "hydra-submitit-launcher",
+    "wandb ~= 0.19",
+    "tqdm",
+    "rich",
+    "pyarrow>=20.0.0",
+    "distinctipy>=1.3.4",
+    "torch-geometric>=2.6.1",
+    "rdkit>=2025.3.2",
+    "fcd>=1.2.2",
+    "torchsde>=0.2.6",
+    "ema-pytorch>=0.2.0",
+    "molecule-benchmarks>=0.1.14",
+    "h5py>=3.14.0",
+    "torchode>=1.0.0",
+    "synthetic-graph-benchmarks>=0.1.2",
+    "huggingface_hub>=0.26.0",
+    # project/reconstructor/sequence.py builds on esm.modules / esm.axial_attention
+    # (sequence_cnn reconstructor: flybrain, mel2, toy_sequence).
+    "fair-esm>=2.0.0",
+]
+requires-python = ">= 3.12"
+license = {text = "MIT"}
+
+[tool.ruff]
+line-length = 90
+
+[tool.ruff.lint.isort]
+known-third-party = ["wandb"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.12",
+]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tool.pixi.dependencies]
+graph-tool = ">=2.98,<3"

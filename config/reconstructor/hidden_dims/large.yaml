@@ -1,0 +1,8 @@
+
+dx: 256
+de: 128
+dy: 256
+n_head: 16
+dim_ffX: 512
+dim_ffE: 128
+dim_ffy: 512

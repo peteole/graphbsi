@@ -1,0 +1,17 @@
+# @package _global_
+
+defaults:
+  - /experiment/guacamol/base
+load_checkpoint: final_checkpoints/guacamol/last.ckpt
+exp: ablations_guacamol_epoch_120
+hydra:
+  sweeper:
+    params:
+      task.sampler.variable_noise.step_method.noise_scale: 2.5,5 # ,250,300,400
+      task.sampler.variable_noise.max_function_evals: 5,10
+      # task.sampler.variable_noise.step_method.bayesian_till: 0.05
+      task.sampler.variable_noise.rho: 1
+      task.sampler.variable_noise.step_method.condition_on_prior: false
+      # task.sampler.variable_noise.step_method.method: euler-maruyama
+      # task.sampler.variable_noise.step_method.method: ornstein-uhlenbeck
+      task.sampler.variable_noise.step_method.method: ornstein-uhlenbeck,euler-maruyama

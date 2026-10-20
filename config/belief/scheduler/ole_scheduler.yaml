@@ -1,0 +1,4 @@
+_target_: project.scheduler.ole_scheduler.OLEScheduler
+initial_precision: 3.0
+final_precision: 25.0
+name: OLEScheduler

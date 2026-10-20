@@ -1,0 +1,14 @@
+_target_: project.belief.belief_constructor.construct_synthetic_graph_belief_from_config
+name: synthetic_graph_belief
+
+defaults:
+  - scheduler: ole_scheduler
+  # - scheduler: lin_scheduler
+
+initial_categorical_belief_std: 1.0
+max_num_nodes: ${data.max_num_nodes}
+scheduler:
+  initial_precision: 3.0
+  final_precision: 12.0
+marginal_as_prior: true
+loss_mode: kl

@@ -1,0 +1,31 @@
+# Python artifacts
+__pycache__/
+*.egg-info/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# ML / runtime
+/data/
+/logs/
+/checkpoints/
+/final_checkpoints/
+wandb/
+.hydra/
+outputs/
+multirun/
+lightning_logs/
+generated_samples/
+results/*.log
+*.pickle
+.ipynb_checkpoints/
+**/*.pt.trace.json
+**/.DS_Store
+.venv
+.venv/
+.brezn/
+profiles/
+profile.html
+profile.json
+.hf_cache/

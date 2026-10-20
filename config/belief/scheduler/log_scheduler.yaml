@@ -1,0 +1,4 @@
+_target_: project.scheduler.log_scheduler.LogScheduler
+multiplier: 5.0
+final_precision: 50.0
+name: LogScheduler

@@ -1,0 +1,37 @@
+# @package _global_
+
+defaults:
+  - /data: guacamol_full
+  # - /data: moses_full
+  - /task/sampler:
+      - variable_noise_sampler
+    # - non_bayesian_sampler
+  - /reconstructor: graph_sample_reconstructor
+  - /belief: molecular_belief
+  - /plots: molecules
+  - /class_conditioner: atom_mask
+data:
+  batch_size: 64
+reconstructor:
+  num_layers: 12
+
+load_checkpoint: checkpoints/train_guacamol/axsf1soc/last.ckpt
+resume_from_epoch: 30
+exp: train_${data.ds_type}
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 50
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 1000.0
+        condition_on_prior: true
+
+trainer:
+  max_epochs: 400
+  log_every_n_steps: 5
+  # profiler: simple
+  check_val_every_n_epoch: 10
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 1

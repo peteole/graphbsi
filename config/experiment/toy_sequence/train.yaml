@@ -1,0 +1,24 @@
+# @package _global_
+
+# Basic training configuration for toy sequences
+# Matches fisher-flow default setup: seq_len=4, alphabet_size=100
+
+defaults:
+  - /experiment/toy_sequence/base
+exp: train_toy_sequences
+
+logger:
+  wandb:
+    name: toy_seq_default
+    tags:
+      - toy_sequence
+      - default
+      - seq_len_4
+      - ${data.alphabet_size}_alphabet
+
+hydra:
+  sweeper:
+    params:
+      data.seq_len: 4
+      data.alphabet_size: 5,10,20,40,60,80,100,120,140,160
+      task.sampler.variable_noise.step_method.noise_scale: 0.5,1.5,5.0

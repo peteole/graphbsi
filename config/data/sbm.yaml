@@ -1,0 +1,5 @@
+_target_: project.data.synthetic_graphs.SyntheticGraphDataModule.from_config
+ds_type: sbm
+cache_dir: data/synthetic_graphs
+batch_size: 4
+max_num_nodes: 187

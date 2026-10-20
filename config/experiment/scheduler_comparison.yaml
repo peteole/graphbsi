@@ -1,0 +1,9 @@
+# @package _global_
+
+name: scheduler_comparison
+exp: scheduler_comparison
+
+hydra:
+  sweeper:
+    params:
+      belief/scheduler: ole_scheduler,lin_scheduler,squared_scheduler,log_scheduler

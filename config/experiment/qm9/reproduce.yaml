@@ -1,0 +1,22 @@
+# @package _global_
+# Reproduce QM9 (no H) metrics from the paper checkpoint (Table 6).
+defaults:
+  - /experiment/qm9/base
+  - override /task/sampler:
+      - variable_noise_sampler
+
+load_checkpoint: final_checkpoints/qm9/last.ckpt
+exp: reproduce_qm9
+wandb:
+  mode: disabled
+  name: reproduce_qm9
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 500
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 90.0
+        condition_on_prior: false

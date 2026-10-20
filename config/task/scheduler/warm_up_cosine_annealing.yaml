@@ -1,0 +1,6 @@
+_target_: project.lr_scheduler.WarmUpCosineAnnealing
+warmup_steps: 5
+max_steps: ${trainer.max_epochs}
+start_lr: 1e-8
+end_lr: 1e-4
+last_epoch: -1

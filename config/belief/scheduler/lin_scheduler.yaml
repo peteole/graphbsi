@@ -1,0 +1,3 @@
+_target_: project.scheduler.lin_scheduler.LinScheduler
+final_precision: 12.0
+name: LinScheduler

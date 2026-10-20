@@ -1,0 +1,3 @@
+_target_: project.scheduler.squared_scheduler.SquaredScheduler
+final_precision: 20.0
+name: SquaredScheduler

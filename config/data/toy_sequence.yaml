@@ -1,0 +1,8 @@
+_target_: project.data.sequence.ToySequenceDataModule.from_config
+ds_type: toy_sequence
+seq_len: 4
+alphabet_size: 100
+batch_size: 512
+num_workers: 0
+train_val_test_split: [100_000, 5_000, 10_000]
+seed: 42

@@ -1,0 +1,9 @@
+restart:
+  _target_: project.samplers.restart_sampler.RestartSampler
+  name: RestartSampler
+  restart_times:
+    min_time: 0.0
+    max_time: 0.95
+    num_steps: 50
+  num_function_evaluations: 3
+  t_with_perfect_reconstruction: 1.0

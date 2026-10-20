@@ -1,0 +1,42 @@
+defaults:
+  - task: elbo
+  - hydra: default
+  # Allow the model to overwrite the settings below
+  - _self_
+  - experiment: ~
+
+seed: ~
+eval_testset: no
+
+name: ${exp}_${data.ds_type}_num_samples-${oc.select:data.max_num_samples,0}
+exp: ${data.ds_type}
+
+wandb:
+  id: ~
+  entity: ~
+  project: ${exp}
+  group: ~
+  name: run #steps=${task.sampler.non_bayesian.time_discretization_steps}_rho=${task.sampler.non_bayesian.rho}_reconstruction_mode=${task.sampler.non_bayesian.reconstruction_mode}
+  mode: ~
+
+hydra:
+  job:
+    name: ${wandb.project}-${wandb.name}
+
+trainer:
+  accelerator: auto
+  devices: auto
+  max_epochs: 400
+  log_every_n_steps: 5
+  # profiler: simple
+  check_val_every_n_epoch: 10
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 2
+
+early_stopping: ~
+
+matmul_precision: medium
+
+# load_checkpoint: checkpoints/molecule_generation/2kf412wb/last.ckpt
+# resume_from_epoch: 130
+# When load_checkpoint is set, only evaluation will be performed, no training. When resume_from_epoch is set additionally, the checkpoint will be loaded and training will continue from the specified epoch.

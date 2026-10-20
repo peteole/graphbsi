@@ -1,0 +1,23 @@
+# @package _global_
+# Reproduce GuacaMol metrics from the paper checkpoint (Table 1).
+defaults:
+  - /experiment/guacamol/base
+  - override /task/sampler:
+      - variable_noise_sampler
+
+load_checkpoint: final_checkpoints/guacamol/last.ckpt
+exp: reproduce_guacamol
+wandb:
+  mode: disabled
+  name: reproduce_guacamol
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 500
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 90.0
+        condition_on_prior: false
+        reconstruction_mode: smooth

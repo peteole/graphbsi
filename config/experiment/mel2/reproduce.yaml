@@ -1,0 +1,20 @@
+# @package _global_
+# Reproduce MEL2 enhancer FBD metrics (Table 3).
+defaults:
+  - /experiment/mel2/base
+
+load_checkpoint: final_checkpoints/mel2/last.ckpt
+exp: reproduce_mel2
+wandb:
+  mode: disabled
+  name: reproduce_mel2
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 100
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 5.0
+        condition_on_prior: false

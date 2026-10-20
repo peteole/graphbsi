@@ -1,0 +1,20 @@
+# @package _global_
+
+defaults:
+  - /experiment/moses/base
+load_checkpoint: final_checkpoints/moses/last.ckpt
+exp: ablations_moses_final_precision
+hydra:
+  sweeper:
+    params:
+      task.sampler.variable_noise.step_method.noise_scale: 90.0
+      task.sampler.variable_noise.max_function_evals: 500
+      # task.sampler.variable_noise.step_method.bayesian_till: 0.05
+      task.sampler.variable_noise.rho: 1.0
+      task.sampler.variable_noise.step_method.condition_on_prior: false
+      task.sampler.variable_noise.step_method.reconstruction_mode: smooth
+      task.sampler.variable_noise.step_method.method: euler-maruyama
+      task.sampler.variable_noise.t_max: 0.5,0.6,0.7,0.8,0.9,1.0
+      
+      # task.sampler.variable_noise.step_method.method: ornstein-uhlenbeck
+      # task.sampler.variable_noise.step_method.method: euler-maruyama,ornstein-uhlenbeck

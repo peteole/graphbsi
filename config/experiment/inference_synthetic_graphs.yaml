@@ -1,0 +1,42 @@
+# @package _global_
+
+defaults:
+    # - non_bayesian_sampler
+  - /data: planar
+  # - override /data: tree
+  # - /data: sbm
+  - /reconstructor: synthetic_graph_sample_reconstructor
+  - /belief: synthetic_graph_belief
+  - /plots: synthetic_graphs
+  - /class_conditioner: synthetic_graph_mask
+  - override /task/sampler:
+      - variable_noise_sampler
+
+exp: ablations_${data.ds_type}
+
+reconstructor:
+  num_layers: 8
+belief:
+  scheduler:
+    initial_precision: 3.0
+    final_precision: 20.0
+  initial_categorical_belief_std: 1.0
+# name: steps=${task.sampler.non_bayesian.time_discretization_steps}
+# exp: noise_
+# sbm final precision 20
+# load_checkpoint: checkpoints/train_${data.ds_type}/0ad3n5dk/last.ckpt
+
+# planar, 8 layers, final precision 12
+# load_checkpoint: checkpoints/train_planar/yqq1a65j/last.ckpt
+
+# planar, 8 layers, final precision 20
+load_checkpoint: checkpoints/train_planar/yxxfmlvf/last.ckpt
+hydra:
+  sweeper:
+    params:
+      task.sampler.variable_noise.step_method.noise_scale: 100,150,200,250,300,400,500
+      task.sampler.variable_noise.max_function_evals: 1000
+      task.sampler.variable_noise.rho: 1.0
+      task.sampler.variable_noise.step_method.condition_on_prior: false
+      # task.sampler.variable_noise.step_method.method: euler-maruyama
+      task.sampler.variable_noise.step_method.method: ornstein-uhlenbeck,euler-maruyama

@@ -1,0 +1,8 @@
+# config/sampler/bayesian_sampler_resample_prior.yaml
+# @package _group_
+bayesian_resample_prior:
+  _target_: project.samplers.bayesian_sampler_resample_prior.BayesianSamplerResamplePrior
+  name: BayesianSamplerResamplePrior
+  time_discretization_steps: 50
+  rho: 1.
+  t_max: 1.

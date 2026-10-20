@@ -1,0 +1,23 @@
+_target_: project.tasks.ELBO.from_config
+_recursive_: false # required to avoid that the optimizer and scheduler are automatically constructed
+defaults:
+  - optimizer: adam
+  # - scheduler: warm_up_cosine_annealing
+  - scheduler: constant
+  - ema: ema
+  - sampler:
+    # - bayesian_sampler
+    # - bayesian_sampler_resample_prior
+    - variable_noise_sampler
+    # - non_bayesian_sampler
+    # - flow_matching_sampler
+    # - ode_sampler
+    # - score_matching_sampler
+    # - restart_sampler
+    # - sde_sampler
+# Any other training config...
+name: elbo
+repeat_count: 1
+reweight_timesteps: false
+num_time_buckets: 10
+skip_validation: false

@@ -1,0 +1,22 @@
+# @package _global_
+
+defaults:
+  - /experiment/sbm/base
+exp: train_sbm
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 1000
+      rho: 1.0
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 200.0
+        condition_on_prior: false
+
+trainer:
+  max_epochs: 400
+  log_every_n_steps: 5
+  # profiler: simple
+  check_val_every_n_epoch: 2000
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 1

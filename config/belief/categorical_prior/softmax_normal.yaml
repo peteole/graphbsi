@@ -1,0 +1,4 @@
+_target_: project.prior.softmax_normal_prior.SoftmaxNormalPrior
+shape: ${data.downsampled_shape??[1,]}
+num_classes: ${data.num_classes??2}
+initial_belief_std: 0.1

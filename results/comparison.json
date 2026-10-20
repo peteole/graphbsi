@@ -1,0 +1,732 @@
+{
+  "summary": {
+    "checked": 72,
+    "exact": 61,
+    "matched": 72,
+    "missing": 0,
+    "failed": [],
+    "quick": false
+  },
+  "checks": [
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_50",
+      "metric": "validity",
+      "paper": 97.5,
+      "reproduced": 97.45333333333333,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_50",
+      "metric": "valid_unique",
+      "paper": 97.5,
+      "reproduced": 97.45333333333333,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_50",
+      "metric": "valid_unique_novel",
+      "paper": 97.2,
+      "reproduced": 97.16666666666667,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_50",
+      "metric": "kl",
+      "paper": 90.7,
+      "reproduced": 90.69984112104962,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_50",
+      "metric": "fcd",
+      "paper": 65.6,
+      "reproduced": 65.56247738541865,
+      "tolerance": 1.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_50",
+      "metric": "validity",
+      "paper": 99.2,
+      "reproduced": 98.96000000000001,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_50",
+      "metric": "valid_unique",
+      "paper": 99.2,
+      "reproduced": 98.95333333333333,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_50",
+      "metric": "valid_unique_novel",
+      "paper": 98.7,
+      "reproduced": 98.4,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_50",
+      "metric": "kl",
+      "paper": 93.7,
+      "reproduced": 93.3320254266763,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_50",
+      "metric": "fcd",
+      "paper": 71.3,
+      "reproduced": 72.44307210470558,
+      "tolerance": 1.5,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_500",
+      "metric": "validity",
+      "paper": 98.8,
+      "reproduced": 98.80666666666667,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_500",
+      "metric": "valid_unique",
+      "paper": 98.8,
+      "reproduced": 98.80666666666667,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_500",
+      "metric": "valid_unique_novel",
+      "paper": 98.3,
+      "reproduced": 98.28666666666666,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_500",
+      "metric": "kl",
+      "paper": 94.6,
+      "reproduced": 94.58022719513437,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:em_500",
+      "metric": "fcd",
+      "paper": 82.6,
+      "reproduced": 82.5737557226094,
+      "tolerance": 1.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_500",
+      "metric": "validity",
+      "paper": 99.6,
+      "reproduced": 99.57333333333334,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_500",
+      "metric": "valid_unique",
+      "paper": 99.6,
+      "reproduced": 99.56,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_500",
+      "metric": "valid_unique_novel",
+      "paper": 98.2,
+      "reproduced": 98.17333333333333,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_500",
+      "metric": "kl",
+      "paper": 98.4,
+      "reproduced": 98.35277176546336,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "guacamol:ou_500",
+      "metric": "fcd",
+      "paper": 80.3,
+      "reproduced": 80.25409630714526,
+      "tolerance": 1.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "validity",
+      "paper": 99.3,
+      "reproduced": 99.268,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "unique",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "novel",
+      "paper": 96.5,
+      "reproduced": 96.516,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "filters",
+      "paper": 96.9,
+      "reproduced": 96.93758310835314,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "fcd",
+      "paper": 1.06,
+      "reproduced": 1.0586474544570308,
+      "tolerance": 0.1,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "snn",
+      "paper": 0.5,
+      "reproduced": 0.5018771109073452,
+      "tolerance": 0.02,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_50",
+      "metric": "scaffold",
+      "paper": 15.2,
+      "reproduced": 15.19774879607041,
+      "tolerance": 3.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "validity",
+      "paper": 99.7,
+      "reproduced": 99.736,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "unique",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "novel",
+      "paper": 94.6,
+      "reproduced": 94.584,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "filters",
+      "paper": 98.2,
+      "reproduced": 98.22330953717815,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "fcd",
+      "paper": 1.19,
+      "reproduced": 1.1869200989037978,
+      "tolerance": 0.1,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "snn",
+      "paper": 0.52,
+      "reproduced": 0.522606383118364,
+      "tolerance": 0.02,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_50",
+      "metric": "scaffold",
+      "paper": 15.1,
+      "reproduced": 15.090011947296889,
+      "tolerance": 3.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "validity",
+      "paper": 99.8,
+      "reproduced": 99.82,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "unique",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "novel",
+      "paper": 92.5,
+      "reproduced": 92.456,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "filters",
+      "paper": 99.1,
+      "reproduced": 99.10238429172512,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "fcd",
+      "paper": 0.72,
+      "reproduced": 0.7215841983499303,
+      "tolerance": 0.1,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "snn",
+      "paper": 0.54,
+      "reproduced": 0.5400664180558995,
+      "tolerance": 0.02,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:em_500",
+      "metric": "scaffold",
+      "paper": 14.3,
+      "reproduced": 14.313578567473051,
+      "tolerance": 3.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "validity",
+      "paper": 99.9,
+      "reproduced": 99.9,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "unique",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "novel",
+      "paper": 90.7,
+      "reproduced": 90.724,
+      "tolerance": 1.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "filters",
+      "paper": 99.2,
+      "reproduced": 99.22722722722723,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "fcd",
+      "paper": 0.9,
+      "reproduced": 0.9014740793430605,
+      "tolerance": 0.1,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "snn",
+      "paper": 0.55,
+      "reproduced": 0.5517028545086329,
+      "tolerance": 0.02,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 1",
+      "row": "moses:ou_500",
+      "metric": "scaffold",
+      "paper": 12.7,
+      "reproduced": 12.711854894690234,
+      "tolerance": 3.0,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:em_50",
+      "metric": "vu",
+      "paper": 7.5,
+      "reproduced": 7.5,
+      "tolerance": 1.6733200530681511,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:em_50",
+      "metric": "ratio",
+      "paper": 47.5,
+      "reproduced": 47.50851082406209,
+      "tolerance": 5.445772362931001,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:em_50",
+      "metric": "vu",
+      "paper": 89.0,
+      "reproduced": 89.0,
+      "tolerance": 8.854377448471462,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:em_50",
+      "metric": "ratio",
+      "paper": 2.1,
+      "reproduced": 2.089279030326202,
+      "tolerance": 0.9809762540834881,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:em_50",
+      "metric": "vu",
+      "paper": 61.5,
+      "reproduced": 60.5,
+      "tolerance": 7.191105617358152,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:em_50",
+      "metric": "ratio",
+      "paper": 4.2,
+      "reproduced": 4.157514533118508,
+      "tolerance": 1.253693814947851,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:ou_50",
+      "metric": "vu",
+      "paper": 38.5,
+      "reproduced": 38.5,
+      "tolerance": 10.87970587837741,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:ou_50",
+      "metric": "ratio",
+      "paper": 18.0,
+      "reproduced": 18.041058224603734,
+      "tolerance": 4.036337709379754,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:ou_50",
+      "metric": "vu",
+      "paper": 96.0,
+      "reproduced": 96.0,
+      "tolerance": 1.5336231610144657,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:ou_50",
+      "metric": "ratio",
+      "paper": 2.5,
+      "reproduced": 2.478822987559373,
+      "tolerance": 1.1485014603471824,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:ou_50",
+      "metric": "vu",
+      "paper": 53.0,
+      "reproduced": 51.49999999999999,
+      "tolerance": 9.06642156531451,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:ou_50",
+      "metric": "ratio",
+      "paper": 51.4,
+      "reproduced": 51.392198605809895,
+      "tolerance": 5.081797391068291,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:em_1000",
+      "metric": "vu",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:em_1000",
+      "metric": "ratio",
+      "paper": 3.8,
+      "reproduced": 3.808877675402165,
+      "tolerance": 1.2760498030661895,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:em_1000",
+      "metric": "vu",
+      "paper": 96.5,
+      "reproduced": 96.50000000000001,
+      "tolerance": 4.706591123095356,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:em_1000",
+      "metric": "ratio",
+      "paper": 1.3,
+      "reproduced": 1.287601980011802,
+      "tolerance": 0.50136853376305,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:em_1000",
+      "metric": "vu",
+      "paper": 50.5,
+      "reproduced": 48.5,
+      "tolerance": 5.4888978857326185,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:em_1000",
+      "metric": "ratio",
+      "paper": 11.3,
+      "reproduced": 11.315343819925555,
+      "tolerance": 1.765835306170073,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:ou_1000",
+      "metric": "vu",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "planar:ou_1000",
+      "metric": "ratio",
+      "paper": 3.2,
+      "reproduced": 4.0076400377821795,
+      "tolerance": 1.0720810636398777,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:ou_1000",
+      "metric": "vu",
+      "paper": 100.0,
+      "reproduced": 100.0,
+      "tolerance": 0.5,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "tree:ou_1000",
+      "metric": "ratio",
+      "paper": 1.8,
+      "reproduced": 1.806792429223745,
+      "tolerance": 0.615954463320837,
+      "ok": true,
+      "exact": true
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:ou_1000",
+      "metric": "vu",
+      "paper": 77.5,
+      "reproduced": 76.0,
+      "tolerance": 7.551953389686671,
+      "ok": true,
+      "exact": false
+    },
+    {
+      "table": "Table 2",
+      "row": "sbm:ou_1000",
+      "metric": "ratio",
+      "paper": 4.6,
+      "reproduced": 5.119147122687048,
+      "tolerance": 1.4512190898465256,
+      "ok": true,
+      "exact": false
+    }
+  ]
+}

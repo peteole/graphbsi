@@ -1,0 +1,10 @@
+_target_: project.data.molecule.MoleculeDataModule.from_config
+ds_type: guacamol
+max_num_atoms: 88
+num_atom_types: 38
+num_bond_types: 5
+cache_dir: data/molecules
+remove_charges: false
+# max_num_samples: 100000
+batch_size: 64
+num_workers: 0

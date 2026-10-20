@@ -1,0 +1,8 @@
+sde:
+  _target_: project.samplers.sde_sampler.SDESampler
+  name: SDESampler
+  method: milstein
+  atol: 1
+  rtol: 1
+  adaptive: false
+  dt: 0.05

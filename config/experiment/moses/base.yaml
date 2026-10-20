@@ -1,0 +1,12 @@
+# @package _global_
+
+defaults:
+  - /data: moses_full
+  - /experiment/molecules
+
+
+data:
+  batch_size: 256
+reconstructor:
+  num_layers: 12
+  # take_argmax: false

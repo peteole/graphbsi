@@ -1,0 +1,18 @@
+# @package _global_
+defaults:
+  - /task/sampler:
+      - variable_noise_sampler
+      - flowback_sampler
+    # - non_bayesian_sampler
+  - /reconstructor: graph_sample_reconstructor
+  - /belief: molecular_belief
+  - /plots: molecules
+  - /class_conditioner: atom_mask
+
+# All released molecular checkpoints (Moses, GuacaMol, QM9) were trained with this
+# precision schedule (beta_start = 3, beta_end = 12, cf. Tab. 7 in the paper).
+# The generic `ole_scheduler` default (25.0) does *not* match them, so pin it here.
+belief:
+  scheduler:
+    initial_precision: 3.0
+    final_precision: 12.0

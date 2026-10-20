@@ -1,0 +1,16 @@
+# config/sampler/variable_noise_sampler.yaml
+# @package _group_
+variable_noise:
+  _target_: project.samplers.step_sampler.StepSampler
+  step_method:
+    _target_: project.samplers.step_methods.variable_noise_step.VariableNoiseStep
+    noise_scale: 90.0
+    condition_on_prior: false
+    # method: euler-maruyama
+    method: ornstein-uhlenbeck
+    bayesian_till: 0.0
+    reconstruction_mode: smooth
+  name: VariableNoiseSampler(noise_level=${.step_method.noise_scale},function_evals=${.max_function_evals},rho=${.rho},condition_on_prior=${.step_method.condition_on_prior},method=${.step_method.method})
+  max_function_evals: 500
+  rho: 1.
+  t_max: 1.

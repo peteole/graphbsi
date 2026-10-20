@@ -1,0 +1,11 @@
+defaults:
+  - submitit_slurm
+
+# Generic SLURM launcher example. Uncomment and adapt for your cluster.
+# qos: default
+# partition: gpu
+gres: gpu:1
+cpus_per_task: 4
+mem_gb: 16
+timeout_min: 1440
+max_num_timeout: 0

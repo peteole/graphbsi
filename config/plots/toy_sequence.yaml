@@ -1,0 +1,10 @@
+- _target_: project.plots.sequence_plots.ToySequenceScorePlotter.from_config
+  name: toy_sequence_kl
+  num_samples: 10000
+  batch_size: 512
+  plot_every_n_epochs: 10
+
+- _target_: project.plots.reconstruction_accuracy.ReconstructionAccuracyPlot
+  name: reconstruction_accuracy
+  num_t_buckets: 10
+  min_samples_per_bucket: 256

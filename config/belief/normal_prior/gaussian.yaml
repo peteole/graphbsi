@@ -1,0 +1,3 @@
+_target_: project.prior.gaussian_prior.GaussianPrior
+shape: ${data.image_shape}
+initial_precision: ${belief.initial_normal_precision}
