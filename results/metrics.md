@@ -41,6 +41,37 @@
 | GraphBSI (OU), 1000 steps | paper | 100.0 ± 0.0 | 3.2 ± 0.6 | 100.0 ± 0.0 | 1.8 ± 0.5 | 77.5 ± 2.7 | 4.6 ± 1.1 |
 | GraphBSI (OU), 1000 steps | reproduced | 100.0 ± 0.0 ✓ | 4.01 ± 1.04 | 100.0 ± 0.0 ✓ | 1.81 ± 0.47 ✓ | 76.0 ± 8.0 | 5.12 ± 1.19 |
 
+## New experiments (after the paper)
+
+Not a reproduction: these rows were produced after the paper with the
+corrected sampler of this fork (`extrapolation` / `guidance`, see the
+README), on the released checkpoints, at an unchanged parameter count
+and an unchanged number of function evaluations. The paper row at the
+same budget is printed above each one as its baseline. Recipes and the
+experiments that did not work are in `research/notes.md`.
+
+### guacamol
+
+| Configuration | Sampler | Val. % | V.U. % | V.U.N. % | KL % | FCD % |
+| --- | --- | --- | --- | --- | --- | --- |
+| GraphBSI (EM), 50 steps | paper, released | 97.5 | 97.5 | 97.2 | 90.7 | 65.6 |
+| GraphBSI (EM), 50 steps | **fork, corrected** | **97.8** | **97.8** | **97.5** | **91.4** | **69.3** |
+| GraphBSI (OU), 50 steps | paper, released | 99.2 | 99.2 | 98.7 | 93.7 | 71.3 |
+| GraphBSI (OU), 50 steps | **fork, corrected** | **99.3** | **99.2** | **98.7** | **93.7** | **80.9** |
+
+### moses
+
+| Configuration | Sampler | Val. % | Uniq. % | Nov. % | Filters % | FCD | SNN | Scaf. % |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| GraphBSI (EM), 50 steps | paper, released | 99.3 | 100.0 | 96.5 | 96.9 | 1.06 | 0.50 | 15.2 |
+| GraphBSI (EM), 50 steps | **fork, corrected** | **99.6** | **100.0** | **95.1** | **98.1** | **0.66** | **0.52** | **15.3** |
+| GraphBSI (OU), 50 steps | paper, released | 99.7 | 100.0 | 94.6 | 98.2 | 1.19 | 0.52 | 15.1 |
+| GraphBSI (OU), 50 steps | **fork, corrected** | **99.7** | **100.0** | **94.3** | **98.4** | **0.88** | **0.53** | **14.8** |
+| GraphBSI (EM), 500 steps | paper, released | 99.8 | 100.0 | 92.5 | 99.1 | 0.72 | 0.54 | 14.3 |
+| GraphBSI (EM), 500 steps | **fork, corrected** | **99.8** | **100.0** | **93.9** | **98.8** | **0.67** | **0.53** | **16.3** |
+| GraphBSI (OU), 500 steps | paper, released | 99.9 | 100.0 | 90.7 | 99.2 | 0.90 | 0.55 | 12.7 |
+| GraphBSI (OU), 500 steps | **fork, corrected** | **99.9** | **100.0** | **91.8** | **99.2** | **0.80** | **0.54** | **13.8** |
+
 ## Summary
 
 - Metrics compared to the paper: **72**

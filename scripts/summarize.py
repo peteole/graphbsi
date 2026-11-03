@@ -63,6 +63,9 @@ MOLECULE_HEADERS = {
         ("scaffold", "Scaf. %", 1),
     ],
 }
+#: `paper_table` of the rows that are new experiments rather than paper rows
+NEW_TABLE = "New"
+NEW_LABELS = ("em_50", "ou_50", "em_500", "ou_500")
 ROW_TITLES = {
     "em_50": "GraphBSI (EM), 50 steps",
     "ou_50": "GraphBSI (OU), 50 steps",
@@ -282,11 +285,72 @@ def _table2_section(results, checks) -> list[str]:
     return lines
 
 
+def _new_section(results) -> list[str]:
+    """New experiments, reported next to the paper row they share a budget with.
+
+    These are not reproductions and take no part in the paper comparison: the
+    paper has no number for them. Each row runs the corrected sampler of this
+    fork on the released checkpoint, at the same number of function evaluations
+    as the paper row of the same name, so the paper row is the baseline printed
+    above it.
+    """
+    new = {
+        key: value
+        for key, value in results.items()
+        if value.get("paper_table") == NEW_TABLE
+    }
+    if not new:
+        return []
+    lines = [
+        "## New experiments (after the paper)",
+        "",
+        "Not a reproduction: these rows were produced after the paper with the",
+        "corrected sampler of this fork (`extrapolation` / `guidance`, see the",
+        "README), on the released checkpoints, at an unchanged parameter count",
+        "and an unchanged number of function evaluations. The paper row at the",
+        "same budget is printed above each one as its baseline. Recipes and the",
+        "experiments that did not work are in `research/notes.md`.",
+        "",
+    ]
+    for dataset in ("guacamol", "moses"):
+        headers = MOLECULE_HEADERS[dataset]
+        rows = [
+            (label, new[(dataset, f"{label}_corrected")])
+            for label in NEW_LABELS
+            if (dataset, f"{label}_corrected") in new
+        ]
+        if not rows:
+            continue
+        lines.append(f"### {dataset}")
+        lines.append("")
+        lines.append(
+            "| Configuration | Sampler | " + " | ".join(h[1] for h in headers) + " |"
+        )
+        lines.append("| --- | --- | " + " | ".join("---" for _ in headers) + " |")
+        for label, data in rows:
+            title = ROW_TITLES.get(label, label)
+            paper = TABLE1.get((dataset, label))
+            if paper is not None:
+                lines.append(
+                    f"| {title} | paper, released | "
+                    + " | ".join(_fmt(paper.get(k), d) for k, _, d in headers)
+                    + " |"
+                )
+            got = molecule_values(dataset, data["metrics"])
+            lines.append(
+                f"| {title} | **fork, corrected** | "
+                + " | ".join(f"**{_fmt(got.get(k), d)}**" for k, _, d in headers)
+                + " |"
+            )
+        lines.append("")
+    return lines
+
+
 def _other_section(results) -> list[str]:
     others = {
         key: value
         for key, value in results.items()
-        if value.get("paper_table") not in ("Table 1", "Table 2")
+        if value.get("paper_table") not in ("Table 1", "Table 2", NEW_TABLE)
     }
     if not others:
         return []
@@ -311,6 +375,7 @@ def write_reports(out_dir: Path) -> dict[str, Any]:
         lines += ["> ⚠ Some rows were produced in `--quick` mode and are **not**", "> comparable to the paper.", ""]
     lines += _table1_section(results, checks)
     lines += _table2_section(results, checks)
+    lines += _new_section(results)
     lines += _other_section(results)
 
     done = [c for c in checks if c["reproduced"] is not None]
