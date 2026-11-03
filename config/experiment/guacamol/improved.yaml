@@ -1,0 +1,34 @@
+# @package _global_
+# GuacaMol with the corrected sampler, 50 function evaluations (research fork).
+# FCD score 80.9, KL 93.7, V.U.N. 98.7, Val. 99.3 at the paper's 15 000 samples,
+# against 71.3 / 93.7 / 98.7 / 99.2 at the same budget (row
+# guacamol:ou_50_corrected of scripts/reproduce.py). The FCD score already
+# matches the paper's 500-step OU row (80.3) at a tenth of the compute.
+#
+# Do NOT carry this over to 500 function evaluations: there the correction costs
+# 4.5 FCD points on the Euler row and 1.3 KL points on the OU row, so use
+# `experiment=guacamol/reproduce` for that budget. See research/notes.md.
+defaults:
+  - /experiment/guacamol/base
+  - override /task/sampler:
+      - corrected_variable_noise_sampler
+
+load_checkpoint: final_checkpoints/guacamol/last.ckpt
+exp: improved_guacamol
+wandb:
+  mode: disabled
+  name: improved_guacamol
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 50
+      rho: 0.7
+      step_method:
+        method: ornstein-uhlenbeck
+        noise_scale: 20.0
+        condition_on_prior: false
+        reconstruction_mode: smooth
+        extrapolation: 1.0
+        extrapolation_clip: true
+        guidance: 0.0
