@@ -1,0 +1,61 @@
+[
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 20,
+  "ms": 1.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 20,
+  "ms": 1.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 20,
+  "ms": 2.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 40,
+  "ms": 1.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 20,
+  "ms": 1.0,
+  "ms_clip": false,
+  "bg": 0.3
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 20,
+  "ms": 1.0,
+  "ms_clip": false,
+  "bg": 0.5
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "batch_size": 512,
+  "gamma": 20,
+  "ms": 1.0,
+  "ms_clip": false,
+  "rho": 0.7
+ }
+]

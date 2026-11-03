@@ -1,0 +1,98 @@
+[
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.5
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.7
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 1.0
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.3,
+  "ms": 0.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.3,
+  "ms": 1.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.5,
+  "ms": 0.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.5,
+  "ms": 1.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "method2": "ornstein-uhlenbeck",
+  "gamma2": 40,
+  "switch_at": 0.3
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "gamma": 20,
+  "rho": 0.7,
+  "method2": "ornstein-uhlenbeck",
+  "gamma2": 40,
+  "switch_at": 0.6
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 40,
+  "rho": 0.7,
+  "method2": "euler-maruyama",
+  "gamma2": 20,
+  "switch_at": 0.5
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 40,
+  "rho": 0.7,
+  "method2": "euler-maruyama",
+  "gamma2": 20,
+  "switch_at": 0.5,
+  "ms": 1.0,
+  "ms_clip": false,
+  "bg": 0.3
+ }
+]

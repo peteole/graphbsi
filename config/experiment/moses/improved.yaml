@@ -1,0 +1,32 @@
+# @package _global_
+# Moses with the corrected sampler, 50 function evaluations (research fork).
+# FCD 0.659, Scaf. 15.3, Nov. 95.1, Val. 99.57, Filters 98.1, SNN 0.516 at the
+# paper's 25 000 samples, against the paper's 1.06 / 15.2 / 96.5 / 99.3 / 96.9 /
+# 0.50 at the same budget (row moses:em_50_corrected of scripts/reproduce.py).
+# Override max_function_evals=500 together with noise_scale=100, rho=1.0,
+# guidance=0.0 and extrapolation=1.5 for the 500-step row (FCD 0.669, Scaf.
+# 16.3); guidance does not help at that budget.
+defaults:
+  - /experiment/moses/base
+  - override /task/sampler:
+      - corrected_variable_noise_sampler
+
+load_checkpoint: final_checkpoints/moses/last.ckpt
+exp: improved_moses
+wandb:
+  mode: disabled
+  name: improved_moses
+
+task:
+  sampler:
+    variable_noise:
+      max_function_evals: 50
+      rho: 0.7
+      step_method:
+        method: euler-maruyama
+        noise_scale: 20.0
+        condition_on_prior: false
+        reconstruction_mode: smooth
+        extrapolation: 0.5
+        extrapolation_clip: false
+        guidance: 0.3

@@ -1,0 +1,32 @@
+[
+ {
+  "nfe": 500,
+  "method": "euler-maruyama",
+  "gamma": 100,
+  "bg": 0.5
+ },
+ {
+  "nfe": 500,
+  "method": "euler-maruyama",
+  "gamma": 100,
+  "ms": 1.0,
+  "ms_clip": false,
+  "bg": 0.3
+ },
+ {
+  "nfe": 500,
+  "method": "euler-maruyama",
+  "gamma": 200,
+  "ms": 1.0,
+  "ms_clip": false,
+  "bg": 0.3
+ },
+ {
+  "nfe": 500,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 90,
+  "ms": 1.0,
+  "ms_clip": false,
+  "bg": 0.3
+ }
+]
