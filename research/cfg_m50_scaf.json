@@ -1,0 +1,40 @@
+[
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "rho": 0.7,
+  "ms": 0.5,
+  "ms_clip": false,
+  "gamma": 30,
+  "bg": 0.3
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "rho": 0.7,
+  "ms": 0.5,
+  "ms_clip": false,
+  "gamma": 20,
+  "bg": 0.3,
+  "bg_hi": 0.5
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "rho": 0.7,
+  "ms": 0.5,
+  "ms_clip": false,
+  "gamma": 20,
+  "bg": 0.3,
+  "bg_lo": 0.5
+ },
+ {
+  "nfe": 50,
+  "method": "euler-maruyama",
+  "rho": 0.7,
+  "ms": 0.5,
+  "ms_clip": false,
+  "gamma": 20,
+  "bg": 0.15
+ }
+]
