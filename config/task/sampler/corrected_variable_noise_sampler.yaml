@@ -1,0 +1,23 @@
+# config/task/sampler/corrected_variable_noise_sampler.yaml
+# @package _group_
+# The variable-noise sampler with the two reconstruction corrections. Selecting
+# this group instead of `variable_noise_sampler` leaves the released sampler
+# untouched; with extrapolation=0 and guidance=0 the two are identical.
+# The option key stays `variable_noise`, so every existing Hydra override path
+# (task.sampler.variable_noise.*) keeps working.
+variable_noise:
+  _target_: project.samplers.step_sampler.StepSampler
+  step_method:
+    _target_: project.samplers.step_methods.corrected_variable_noise_step.CorrectedVariableNoiseStep
+    noise_scale: 90.0
+    condition_on_prior: false
+    method: ornstein-uhlenbeck
+    bayesian_till: 0.0
+    reconstruction_mode: smooth
+    extrapolation: 0.0
+    extrapolation_clip: true
+    guidance: 0.0
+  name: CorrectedVariableNoiseSampler(noise_level=${.step_method.noise_scale},function_evals=${.max_function_evals},rho=${.rho},condition_on_prior=${.step_method.condition_on_prior},method=${.step_method.method},extrapolation=${.step_method.extrapolation},extrapolation_clip=${.step_method.extrapolation_clip},guidance=${.step_method.guidance})
+  max_function_evals: 500
+  rho: 1.
+  t_max: 1.

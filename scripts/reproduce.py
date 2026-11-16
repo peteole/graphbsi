@@ -14,10 +14,16 @@ number.  Sampling is deterministic given the seed, the sampling batch size, the
 environment and the GPU architecture, so with all four matching the paper
 numbers come out exactly (see ``REPRODUCTION.md``).
 
+``ROWS`` also holds a handful of rows that are *not* in the paper: new
+experiments run after it with this fork's corrected sampler, on the same
+checkpoints and at the same number of function evaluations.  They are selected
+with ``--tables new`` and are reported separately, not as a reproduction.
+
 Examples:
   python scripts/reproduce.py --tables 1 2          # everything in Tabs. 1 + 2
-  python scripts/reproduce.py --datasets planar     # one dataset, all rows
+  python scripts/reproduce.py --datasets planar     # one dataset, all paper rows
   python scripts/reproduce.py --rows moses:ou_500
+  python scripts/reproduce.py --tables new          # the post-paper experiments
   python scripts/reproduce.py --all --quick         # smoke test
 """
 
@@ -46,6 +52,12 @@ TOY_ALPHABETS = [5, 10, 20, 40, 60, 80, 100, 120, 140, 160]
 
 EM = "euler-maruyama"
 OU = "ornstein-uhlenbeck"
+
+#: Rows that are *not* in the paper: new experiments run after it with the
+#: corrected sampler of this fork. They are left out of `--tables 1 2`, out of
+#: the default selection and out of the paper comparison; `--tables new` or
+#: `--rows moses:em_50_corrected` selects them.
+NEW = "New"
 
 #: The two locked environments. The paper's runs used the uv one (torch 2.7,
 #: Python 3.12) except for the SBM ablations, which ran in the pixi one (torch
@@ -84,6 +96,17 @@ class Row:
     env: str = "uv"
     #: GPU architecture of the paper run; sampling is only bit-exact on it
     gpu: str | None = None
+    #: time-grid exponent; every paper row uses the uniform grid
+    rho: float = 1.0
+    #: weights of the two sampler corrections of this fork, see
+    #: `project/samplers/step_methods/corrected_variable_noise_step.py`. None
+    #: leaves them out of the overrides entirely, which is what the paper rows
+    #: do: they run the released step method.
+    extrapolation: float | None = None
+    extrapolation_clip: bool | None = None
+    guidance: float | None = None
+    #: what this row is, for rows that are not in a paper table
+    note: str | None = None
 
     @property
     def key(self) -> str:
@@ -131,6 +154,59 @@ def _molecule_rows(
     return rows
 
 
+#: label -> (method, gamma, nfe, rho, extrapolation, extrapolation_clip, guidance)
+CorrectedSpec = tuple[str, float, int, float, float, bool, float]
+
+
+def _corrected_molecule_rows(
+    dataset: str,
+    num_samples: int,
+    specs: dict[str, CorrectedSpec],
+    paper_rows: list[Row],
+    checkpoints: dict[str, str] | None = None,
+) -> list[Row]:
+    """New experiments: the corrected sampler on the released checkpoints.
+
+    Each row mirrors the paper row of the same name — same checkpoint, same
+    number of samples, same seed, same number of function evaluations — and
+    differs only in the sampler. The noise level and the correction weights are
+    those tuned in `research/notes.md`.
+    """
+    paper = {row.label: row for row in paper_rows if row.dataset == dataset}
+    rows = []
+    for label, (method, gamma, nfe, rho, ms, ms_clip, bg) in specs.items():
+        base = paper[label.removesuffix("_corrected")]
+        rows.append(
+            Row(
+                dataset=dataset,
+                label=label,
+                method=method,
+                gamma=gamma,
+                nfe=nfe,
+                rho=rho,
+                extrapolation=ms,
+                extrapolation_clip=ms_clip,
+                guidance=bg,
+                seed=base.seed,
+                table=NEW,
+                experiment=f"{dataset}/improved",
+                checkpoint=(checkpoints or {}).get(label, base.checkpoint),
+                num_samples=num_samples,
+                batch_size_key="plots.0.batch_size",
+                note=(
+                    "new experiment, not in the paper: the corrected sampler at "
+                    f"the budget of the paper's {label.removesuffix('_corrected')} row"
+                ),
+                quick=(
+                    "plots.0.num_samples=256",
+                    "plots.0.batch_size=64",
+                    "task.sampler.variable_noise.max_function_evals=20",
+                ),
+            )
+        )
+    return rows
+
+
 def _graph_rows(dataset: str, specs: dict[str, Spec], env: str = "uv") -> list[Row]:
     rows = []
     for label, (method, gamma, nfe, seed, source, gpu) in specs.items():
@@ -166,7 +242,7 @@ def _graph_rows(dataset: str, specs: dict[str, Spec], env: str = "uv") -> list[R
 # numbers (entity peteole-technical-university-of-munich).
 MOSES_RUNS = "molecules_ablation_12_layers_moses"
 GUACAMOL_RUNS = "molecules_ablation_12_layers_guacamol"
-ROWS: list[Row] = [
+PAPER_ROWS: list[Row] = [
     *_molecule_rows(
         "moses",
         25_000,
@@ -293,6 +369,35 @@ ROWS: list[Row] = [
     ],
 ]
 
+#: New experiments, run after the paper. Recipes from `research/notes.md`; the
+#: numbers they produce are in `research/results.md` and `results/metrics.md`.
+#: GuacaMol has no corrected 500-evaluation row on purpose: there the
+#: corrections cost 4.5 FCD points (Euler) and 1.3 KL points (OU).
+NEW_ROWS: list[Row] = [
+    *_corrected_molecule_rows(
+        "moses",
+        25_000,
+        {
+            "em_50_corrected": (EM, 20.0, 50, 0.7, 0.5, False, 0.3),
+            "ou_50_corrected": (OU, 20.0, 50, 1.0, 1.0, True, 0.0),
+            "em_500_corrected": (EM, 100.0, 500, 1.0, 1.5, False, 0.0),
+            "ou_500_corrected": (OU, 90.0, 500, 1.0, 1.0, False, 0.0),
+        },
+        PAPER_ROWS,
+    ),
+    *_corrected_molecule_rows(
+        "guacamol",
+        15_000,
+        {
+            "em_50_corrected": (EM, 10.0, 50, 1.0, 1.0, True, 0.0),
+            "ou_50_corrected": (OU, 20.0, 50, 0.7, 1.0, True, 0.0),
+        },
+        PAPER_ROWS,
+    ),
+]
+
+ROWS: list[Row] = [*PAPER_ROWS, *NEW_ROWS]
+
 ROWS_BY_KEY = {row.key: row for row in ROWS}
 TABLE12_KEYS = [row.key for row in ROWS if row.table in ("Table 1", "Table 2")]
 
@@ -388,9 +493,18 @@ def build_overrides(
         f"task.sampler.variable_noise.max_function_evals={row.nfe}",
         f"task.sampler.variable_noise.step_method.method={row.method}",
         f"task.sampler.variable_noise.step_method.noise_scale={row.gamma}",
-        "task.sampler.variable_noise.rho=1.0",
+        f"task.sampler.variable_noise.rho={row.rho}",
         "task.sampler.variable_noise.step_method.condition_on_prior=false",
     ]
+    # Only the new rows carry the corrections; the paper rows leave these out
+    # and run the released step method.
+    step = "task.sampler.variable_noise.step_method"
+    if row.extrapolation is not None:
+        overrides.append(f"{step}.extrapolation={row.extrapolation}")
+    if row.extrapolation_clip is not None:
+        overrides.append(f"{step}.extrapolation_clip={str(row.extrapolation_clip).lower()}")
+    if row.guidance is not None:
+        overrides.append(f"{step}.guidance={row.guidance}")
     # Rows without a replayable paper run still get a fixed seed so that every
     # row of the reproduction is deterministic.
     overrides.append(f"seed={row.seed if row.seed is not None else 0}")
@@ -538,6 +652,8 @@ def run_row(
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "quick": quick,
     }
+    if row.note is not None:
+        result["note"] = row.note
     out = out_dir / f"{row.dataset}_{row.label}.json"
     out.write_text(json.dumps(result, indent=2))
     print(f"Wrote {out} ({result['runtime_seconds']:.0f}s)", flush=True)
@@ -611,8 +727,10 @@ def main() -> None:
     parser.add_argument(
         "--tables",
         nargs="+",
-        choices=["1", "2", "3", "6", "9"],
-        help="Paper tables to reproduce (1 and 2 are the main results)",
+        choices=["1", "2", "3", "6", "9", "new"],
+        help="Paper tables to reproduce (1 and 2 are the main results). 'new' "
+        "selects the post-paper experiments with the corrected sampler, which "
+        "are not part of any paper table",
     )
     parser.add_argument("--all", action="store_true", help="Reproduce every known row")
     parser.add_argument("--quick", action="store_true", help="Reduced sample counts")
@@ -654,6 +772,7 @@ def main() -> None:
         "3": "Table 3",
         "6": "Table 6",
         "9": "Figure 9",
+        "new": NEW,
     }
 
     if args.all:
@@ -664,7 +783,9 @@ def main() -> None:
             wanted = {table_names[t] for t in args.tables}
             selected += [r for r in ROWS if r.table in wanted]
         if args.datasets:
-            selected += [r for r in ROWS if r.dataset in args.datasets]
+            # Paper rows only, so that --datasets keeps reproducing the paper;
+            # the new rows are opt-in via --tables new, --rows or --all.
+            selected += [r for r in PAPER_ROWS if r.dataset in args.datasets]
         if args.rows:
             for key in args.rows:
                 if key not in ROWS_BY_KEY:

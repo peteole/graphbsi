@@ -9,6 +9,110 @@ Reference implementation of
 GraphBSI generates graphs by iteratively refining a continuous belief over node and
 edge categories via Bayesian Sample Inference, with a noise-controlled SDE sampler.
 
+> **Beyond the paper.** The sampler also carries two optional corrections that
+> improve the FCD of every molecular row of Tab. 1 at an unchanged parameter
+> count, unchanged checkpoints and an unchanged number of function evaluations.
+> They default to off, so the published rows are reproduced by exactly the code
+> that produced them. See [research/notes.md](research/notes.md) for the full
+> log, including what did not work, and
+> [research/results.md](research/results.md) for the measurements.
+
+## Improved sampler
+
+The reconstructor predicts a *posterior mean*: an average over every molecule
+consistent with the current noisy belief. That average lies between real
+molecules, so repeatedly steering the belief at it biases samples towards
+generic, mode-averaged structures — which is what FCD punishes. Two corrections
+push the target further along the direction the reconstructor already proposes.
+Both reuse quantities that are already computed, so neither costs a function
+evaluation:
+
+- **Multistep extrapolation** (`extrapolation`): feed the belief update a
+  linear extrapolation through the previous reconstruction,
+  `x_n + w · dt · (x_n − x_{n−1}) / dt_prev`, instead of `x_n` itself.
+- **Belief guidance** (`guidance`): feed it `x + w · (x − softmax(belief))`,
+  which over-relaxes the update direction.
+
+```bash
+python train.py experiment=moses/improved      # 50 NFE, FCD 0.66
+python train.py experiment=guacamol/improved   # 50 NFE, FCD score 80.9
+```
+
+Each config documents the numbers it produces and the budget it is tuned for.
+The knobs are plain Hydra overrides, e.g.
+`task.sampler.variable_noise.step_method.guidance=0.5`.
+
+Both corrections live in `CorrectedVariableNoiseStep`
+(`project/samplers/step_methods/corrected_variable_noise_step.py`), a subclass of
+the released `VariableNoiseStep` that is selected by its own sampler group,
+`config/task/sampler/corrected_variable_noise_sampler.yaml`. It keeps the option
+key `variable_noise`, so existing override paths still apply, and with
+`extrapolation=0 guidance=0` it is bit-identical to the released step method.
+No existing sampler code, config or metric key changes, so
+`scripts/reproduce.py` still replays the paper rows byte for byte.
+
+### New experiments after the paper
+
+The rows below are **not** in the paper and are not a reproduction of it: they
+are new experiments, run after it, with the corrected sampler on the released
+checkpoints. Each one mirrors the paper row above it — same checkpoint, same
+seed, same 25 000 / 15 000 samples, same number of function evaluations, same
+parameter count — and differs only in the sampler. The paper's own rows are
+reproduced separately and unchanged in [results/metrics.md](results/metrics.md).
+
+They are registered in `scripts/reproduce.py` like any other row and are
+excluded from the paper comparison, so the reproduction summary still compares
+exactly the 72 published metrics it did before:
+
+```bash
+python scripts/reproduce.py --tables new --list   # the six new rows
+python scripts/reproduce.py --tables new          # run them
+```
+
+Moses, 25 000 samples:
+
+| | FCD ↓ | Scaf ↑ | Nov. | Val. | Uniq. | Filters | SNN |
+|---|---|---|---|---|---|---|---|
+| paper, Euler 50 | 1.06 | 15.2 | 96.5 | 99.3 | 100.0 | 96.9 | 0.50 |
+| **new, Euler 50** | **0.659** | 15.3 | 95.1 | 99.6 | 100.0 | 98.1 | 0.516 |
+| paper, OU 50 | 1.19 | 15.1 | 94.6 | 99.7 | 100.0 | 98.2 | 0.52 |
+| **new, OU 50** | **0.882** | 14.8 | 94.3 | 99.7 | 100.0 | 98.4 | 0.526 |
+| paper, Euler 500 | 0.72 | 14.3 | 92.5 | 99.8 | 100.0 | 99.1 | 0.54 |
+| **new, Euler 500** | **0.669** | **16.3** | 94.0 | 99.8 | 100.0 | 98.8 | 0.525 |
+| paper, OU 500 | 0.90 | 12.7 | 90.7 | 99.9 | 100.0 | 99.2 | 0.55 |
+| **new, OU 500** | **0.804** | 13.8 | 91.8 | 99.9 | 100.0 | 99.2 | 0.543 |
+
+GuacaMol, 15 000 samples:
+
+| | FCD ↑ | KL ↑ | V.U.N. ↑ | V.U. | Val. |
+|---|---|---|---|---|---|
+| paper, Euler 50 | 65.6 | 90.7 | 97.2 | 97.5 | 97.5 |
+| **new, Euler 50** | **69.3** | **91.4** | **97.5** | 97.8 | 97.8 |
+| paper, OU 50 | 71.3 | 93.7 | 98.7 | 99.2 | 99.2 |
+| **new, OU 50** | **80.9** | 93.7 | 98.7 | 99.2 | 99.3 |
+
+FCD improves on all six rows, by 0.05–0.4 on Moses and 3.7–9.6 points on
+GuacaMol. It is the only metric that improves everywhere: novelty loses about a
+point at 50 evaluations on Moses, and single columns move the wrong way by less
+than their run-to-run spread (Moses OU 50 scaffold similarity, Moses Euler 500
+filters). The Moses 50-evaluation row beats the paper's 500-evaluation FCD, and
+ten times more sampling compute then buys only 0.01 further FCD, so the model is
+close to saturated at 50 evaluations.
+
+These are the numbers in `results/metrics.md`, each from a single run at the
+paper row's seed and a sampling batch size of 125. Repeating a row with a
+different seed or batch size moves Moses FCD by up to about ±0.04 and scaffold
+similarity by ±1.5, so differences of that size between these numbers and the
+ones in `research/results.md` (three seeds, batch 256/512) are draw noise, not
+a change in the sampler.
+
+Guidance helps only where the time discretisation is coarse: it is worth about
+0.1 FCD at 50 evaluations on Moses, and is counterproductive at 500 evaluations
+and on GuacaMol, where only the extrapolation term is used. On GuacaMol at 500
+evaluations the corrections *hurt* — 4.5 FCD points on the Euler row, 1.3 KL
+points on the OU row — so there is deliberately no new 500-evaluation GuacaMol
+row; use `experiment=guacamol/reproduce` at that budget.
+
 ## Installation
 
 The paper results were computed in two locked environments, and an exact
@@ -152,6 +256,12 @@ scripts/
   reproduce.py          # Metric reproduction entrypoint (one job per table row)
   paper_values.py       # Published Tab. 1 / Tab. 2 numbers
   summarize.py          # results/*.json -> results/metrics.md
+research/               # Sampler search behind the corrections above
+  notes.md              # Full log, including everything that did not work
+  results.md            # Every configuration that was measured
+  sota_metrics.md       # Best published value of each metric, with sources
+  harness.py            # Sample and score a configuration without Hydra/Lightning
+  sweep.py              # Drive the harness over a grid of configurations
 reproduce_all.sh
 final_checkpoints/      # Populated by download_checkpoints.py (gitignored)
 train.py

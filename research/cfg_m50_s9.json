@@ -1,0 +1,74 @@
+[
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.3,
+  "ms": 0.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.3,
+  "ms": 0.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.3,
+  "ms": 1.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.5,
+  "ms": 0.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.5,
+  "ms": 0.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 20,
+  "rho": 0.7,
+  "bg": 0.5,
+  "ms": 1.0,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 40,
+  "rho": 0.7,
+  "bg": 0.3,
+  "ms": 0.5,
+  "ms_clip": false
+ },
+ {
+  "nfe": 50,
+  "method": "ornstein-uhlenbeck",
+  "gamma": 40,
+  "rho": 0.7,
+  "bg": 0.5,
+  "ms": 0.5,
+  "ms_clip": false
+ }
+]
